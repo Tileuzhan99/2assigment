@@ -7,22 +7,25 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class Main{
     public static void main(String[] args) {
-        // создаём спринг контекст
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        // получаем основной сервис (по умолчанию @праймари)
+        // основной сервис (Basic)
         ShowService showService = context.getBean(ShowService.class);
-        showService.addShow("The Boys");
+        showService.addShow("The Boys", 10);
+        showService.addShow("Snowfall", 9);
+        showService.addShow("The Witcher", 8);
+        showService.addShow("Squid Game" , 9);
         showService.showAllShows();
 
-        // получаем уже популярный сервис через @куалифер
+        // популярные сериалы (Popular)
         ShowService popularShowService = context.getBean("popularShowService", ShowService.class);
-        popularShowService.addShow("Game of Thrones");
+        popularShowService.addShow("Game of Thrones", 10);
+        popularShowService.addShow("Breaking Bad", 9);
+        popularShowService.addShow("The Walking Dead", 10);
         popularShowService.showAllShows();
 
-        // Ззапрашиваем ленивый бин (LazyBean)
+        // запрашиваем ленивый бин
         LazyBean lazyBean = context.getBean(LazyBean.class);
-
 
         context.close();
     }
